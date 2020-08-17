@@ -2,6 +2,16 @@
 
 Create a git repository to host your source code. Git repository has source code folder to execution python code
 
+0. To run things on minikube
+```
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+kubectl apply --filename https://github.com/tektoncd/dashboard/releases/latest/download/tekton-dashboard-release.yaml
+# to switch to tekton-pipelines namespace
+kubectl config set-context --current --namespace=tekton-pipelines
+kubectl proxy --port=8080
+# Dash board can now be accessed at http://localhost:8080
+```
+
 commands to execute
 1. Create a pipeline resource
 ```
@@ -81,14 +91,4 @@ tkn pipeline start math-sequential-params --dry-run
 # Copy output to flows/19-pipelineRun-math-seq-params.yml
 kubectl create -f flows/19-pipelineRun-math-seq-params.yml
 tkn pipelinerun logs --last -f
-```
-
-99. To run things on minikube
-```
-kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
-kubectl apply --filename https://github.com/tektoncd/dashboard/releases/latest/download/tekton-dashboard-release.yaml
-# to switch to tekton-pipelines namespace
-kubectl config set-context --current --namespace=tekton-pipelines
-kubectl proxy --port=8080
-# Dash board can now be accessed at http://localhost:8080
 ```
