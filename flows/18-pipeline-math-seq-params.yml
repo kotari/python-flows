@@ -1,0 +1,41 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: math-sequential-params
+spec:
+  params:
+    - name: pl-param-x
+      type: string
+    - name: pl-param-y
+      type: string
+    - name: pl-param-xy
+      type: array
+  resources:
+    - name: pipeline-source-repo
+      type: git
+  tasks:
+  - name: add
+    taskRef:
+      name: math-add-params
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+    params:
+      - name: input-x
+        value: "$(params.pl-param-x)"
+      - name: input-y
+        value: "$(params.pl-param-y)"
+  - name: subtract
+    runAfter:
+     - add
+    taskRef:
+      name: math-subtract-params
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+    params:
+      - name: inputs
+        value:
+        - "$(params.pl-param-xy)"

@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: math-add-params-run-
+spec:
+  params:
+  - name: input-x
+    value: "7"
+  - name: input-y
+    value: "11"
+  resources:
+    inputs:
+    - name: flows
+      resourceRef:
+        name: math-git-resource
+  serviceAccountName: ""
+  taskRef:
+    name: math-add-params

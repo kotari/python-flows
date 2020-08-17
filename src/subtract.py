@@ -5,4 +5,5 @@ def subtract(x, y):
 
 
 if __name__ == '__main__':
+    print(sys.argv)
     print(subtract(sys.argv[1], sys.argv[2]))

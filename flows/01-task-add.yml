@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: math-add
+spec:
+  resources:
+    inputs:
+      - name: flows
+        type: git
+  steps:
+    - name: add
+      image: python:3.8.5-alpine3.11
+      workingDir: /workspace/flows/src
+      command: ["python"]
+      args: ["add.py",  "200", "500"]

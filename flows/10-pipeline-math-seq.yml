@@ -1,0 +1,43 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: math-sequential
+spec:
+  resources:
+    - name: pipeline-source-repo
+      type: git
+  tasks:
+  - name: add
+    taskRef:
+      name: math-add
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: subtract
+    runAfter:
+     - add
+    taskRef:
+      name: math-subtract
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: multiply
+    runAfter:
+     - subtract
+    taskRef:
+      name: math-multiply
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: divide
+    runAfter:
+     - multiply
+    taskRef:
+      name: math-divide
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo

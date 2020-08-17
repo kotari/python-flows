@@ -1,0 +1,15 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: math-divide
+spec:
+  resources:
+    inputs:
+      - name: flows
+        type: git
+  steps:
+    - name: divide
+      image: python:3.8.5-alpine3.11
+      workingDir: /workspace/flows/src
+      command: ["python"]
+      args: ["divide.py",  "200", "500"]

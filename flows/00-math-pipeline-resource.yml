@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: math-git-resource
+spec:
+  type: git
+  params:
+    - name: url
+      value: https://github.com/kotari/python-flows
+    - name: revision
+      value: master

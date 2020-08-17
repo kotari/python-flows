@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: math-parallel-run-
+spec:
+  pipelineRef:
+    name: math-parallel
+  resources:
+  - name: pipeline-source-repo
+    resourceRef:
+      name: math-git-resource

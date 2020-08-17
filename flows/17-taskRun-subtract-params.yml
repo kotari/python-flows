@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: math-subtract-params-run-
+spec:
+  params:
+  - name: inputs
+    value:
+    - "12"
+    - "7"
+  resources:
+    inputs:
+    - name: flows
+      resourceRef:
+        name: math-git-resource
+  serviceAccountName: ""
+  taskRef:
+    name: math-subtract-params

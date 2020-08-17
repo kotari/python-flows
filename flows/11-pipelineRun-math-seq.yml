@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: math-sequential-run-
+spec:
+  pipelineRef:
+    name: math-sequential
+  resources:
+  - name: pipeline-source-repo
+    resourceRef:
+      name: math-git-resource
