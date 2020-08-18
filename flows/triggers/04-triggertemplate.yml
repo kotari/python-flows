@@ -1,0 +1,27 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: pipeline-template
+spec:
+  params:
+  - name: pl-param-x
+    description: input variable x
+    default: "7"
+  - name: pl-param-y
+    description: input variable y
+    default: "11"
+  - name: pl-param-xy
+    description: input variable x and y comma separated
+    default: "12,7"
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: math-parallel-run-
+    spec:
+      pipelineRef:
+        name: math-parallel
+      resources:
+      - name: pipeline-source-repo
+        resourceRef:
+          name: math-git-resource
