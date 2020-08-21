@@ -11,10 +11,10 @@ def divide(x, y):
     if (os.path.exists('/workspace/filedrop')):
         f = open("/workspace/filedrop/add.txt","r")
         x = f.read()
-        print(x)
+        print('x : ' + x)
         f = open("/workspace/filedrop/subtract.txt","r")
         y = f.read()
-        print(y)
+        print('y : ' + y)
         result = int(x) / int(y)
         f = open("/workspace/filedrop/divide.txt","w")
         f.write(str(result))
@@ -22,5 +22,4 @@ def divide(x, y):
 
 
 if __name__ == '__main__':
-    print(sys.argv)
     print(divide(sys.argv[1], sys.argv[2]))
