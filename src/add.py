@@ -10,6 +10,7 @@ def add(x, y):
     sum = int(x) + int(y)
     f = open("/workspace/sum.txt","w+")
     f.write(str(sum))
+    os.environ['results.sum'] = str(sum)
     return sum
 
 
