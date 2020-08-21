@@ -11,7 +11,7 @@ def subtract(x, y):
     if (os.path.exists('/workspace/filedrop')):
         arr = os.listdir('/workspace/filedrop')
         print(arr)
-        f = open("/workspace/filedrop/subtract.txt","w+")
+        f = open("/workspace/filedrop/subtract.txt","w")
         f.write(str(result))
     return result
 

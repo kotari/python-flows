@@ -9,7 +9,7 @@ def add(x, y):
     sleep(rdm)
     result = int(x) + int(y)
     if (os.path.exists('/workspace/filedrop')):
-        f = open("/workspace/filedrop/add.txt","w+")
+        f = open("/workspace/filedrop/add.txt","w")
         f.write(str(result))
     return result
 
