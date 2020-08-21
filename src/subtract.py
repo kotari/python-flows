@@ -1,11 +1,13 @@
 import sys
 from time import sleep
 import random
+import os
 
 def subtract(x, y):
     rdm = random.randint(1,10)
     print('sleeping for - ' + str(rdm) + ' seconds.')
     sleep(rdm)
+    print(os.environ)
     return int(x) - int(y)
 
 
