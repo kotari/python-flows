@@ -7,8 +7,13 @@ def subtract(x, y):
     rdm = random.randint(1,10)
     print('sleeping for - ' + str(rdm) + ' seconds.')
     sleep(rdm)
-    print(os.environ)
-    return int(x) - int(y)
+    result = int(x) - int(y)
+    if (os.path.exists('/workspace/filedrop')):
+        arr = os.listdir('/workspace/filedrop')
+        print(arr)
+        f = open("/workspace/filedrop/subtract.txt","w+")
+        f.write(str(result))
+    return result
 
 
 if __name__ == '__main__':

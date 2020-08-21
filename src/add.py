@@ -7,12 +7,11 @@ def add(x, y):
     rdm = random.randint(1,10)
     print('sleeping for - ' + str(rdm) + ' seconds.')
     sleep(rdm)
-    sum = int(x) + int(y)
-    arr = os.listdir('/workspace')
-    print(arr)
-    f = open("/workspace/sum.txt","w+")
-    f.write(str(sum))
-    return sum
+    result = int(x) + int(y)
+    if (os.path.exists('/workspace/filedrop')):
+        f = open("/workspace/filedrop/add.txt","w+")
+        f.write(str(result))
+    return result
 
 
 if __name__ == '__main__':
