@@ -7,8 +7,10 @@ def add(x, y):
     rdm = random.randint(1,10)
     print('sleeping for - ' + str(rdm) + ' seconds.')
     sleep(rdm)
-    print(os.environ)
-    return int(x) + int(y)
+    sum = int(x) + int(y)
+    f = open("/workspace/sum.txt","w+")
+    f.write(str(sum))
+    return sum
 
 
 if __name__ == '__main__':
