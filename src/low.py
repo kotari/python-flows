@@ -15,7 +15,7 @@ def low():
         f = open("/workspace/filedrop/multiply.txt","r")
         y = f.read()
         print(y)
-        if int(x) <= int(y):
+        if float(x) <= float(y):
             result = "division wins"
         f = open("/workspace/filedrop/result.txt","w")
         f.write(str(result))
