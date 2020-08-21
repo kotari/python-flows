@@ -12,7 +12,6 @@ def add(x, y):
     print(arr)
     f = open("/workspace/sum.txt","w+")
     f.write(str(sum))
-    os.environ['results.sum'] = str(sum)
     return sum
 
 
