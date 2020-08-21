@@ -1,6 +1,7 @@
 import sys
 from time import sleep
 import random
+import os
 
 def multiply(x, y):
     rdm = random.randint(1,10)
