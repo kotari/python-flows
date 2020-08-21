@@ -16,6 +16,8 @@ def multiply(x, y):
         y = f.read()
         print(y)
         result = int(x) * int(y)
+        f = open("/workspace/filedrop/multiply.txt","w")
+        f.write(str(result))
 
     return result
 
