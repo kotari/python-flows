@@ -2,6 +2,7 @@ from minio import Minio
 from minio.error import (ResponseError, BucketAlreadyOwnedByYou,
                          BucketAlreadyExists)
 import os
+import sys
 
 mc = Minio(os.environ['MINIO_SERVICE_HOST']+ ':' + os.environ['MINIO_SERVICE_PORT'],
                     access_key='minio',
