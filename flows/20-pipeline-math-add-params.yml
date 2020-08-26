@@ -1,0 +1,44 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: math-pipeline-add
+spec:
+  params:
+    - name: input-x
+      type: string
+    - name: input-y
+      type: string
+  resources:
+    - name: pipeline-source-repo
+      type: git
+  tasks:
+  - name: add
+    taskRef:
+      name: math-add-params
+    params:
+      - name: input-x
+        value: "$(params.input-x)"
+      - name: input-y
+        value: "$(params.input-y)"
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: multiply
+    runAfter:
+     - add
+    taskRef:
+      name: math-multiply
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: divide
+    runAfter:
+     - add
+    taskRef:
+      name: math-divide
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
