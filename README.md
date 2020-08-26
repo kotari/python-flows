@@ -9,7 +9,8 @@ kubectl apply --filename https://github.com/tektoncd/dashboard/releases/latest/d
 # to switch to tekton-pipelines namespace
 kubectl config set-context --current --namespace=tekton-pipelines
 kubectl proxy --port=8080
-# Dash board can now be accessed at http://localhost:8080
+# Dash board can now be accessed at http://localhost:8080/api/v1/namespaces/tekton-pipelines/services/tekton-dashboard:http/proxy/
+kubectl port-forward minio-<pod-name> 7000:9000
 ```
 
 commands to execute
@@ -92,3 +93,21 @@ tkn pipeline start math-sequential-params --dry-run
 kubectl create -f flows/19-pipelineRun-math-seq-params.yml
 tkn pipelinerun logs --last -f
 ```
+14. curl command
+```
+curl -X POST \
+  http://localhost:8080/api/v1/namespaces/tekton-pipelines/services/el-listener:http-listener/proxy/ \
+  -H 'Content-Type: application/json' \
+  -H 'X-Hub-Signature: sha1=2da37dcb9404ff17b714ee7a505c384758ddeb7b' \
+  -d '{
+        "head_commit":
+        {
+                "id": "master"
+        },
+        "repository":
+        {
+                "url": "https://github.com/tektoncd/triggers.git"
+        }
+}'
+```
+
