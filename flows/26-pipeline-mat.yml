@@ -1,0 +1,95 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: orchestration
+spec:
+  params:
+  - name: input-x
+    type: string
+  - name: input-y
+    type: string
+  - name: artifact-name
+    type: string
+  workspaces:
+  - name: shared-data
+  resources:
+    - name: pipeline-source-repo
+      type: git
+  tasks:
+  - name: add-subtract
+    taskRef:
+      name: math-add-sub-params
+    workspaces:
+    - name: filedrop
+      workspace: shared-data
+    params:
+      - name: input-x
+        value: "$(params.input-x)"
+      - name: input-y
+        value: "$(params.input-y)"
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: multiply
+    runAfter:
+     - add-subtract
+    taskRef:
+      name: math-multiply-workspace
+    workspaces:
+    - name: filedrop
+      workspace: shared-data
+    params:
+      - name: input-x
+        value: "$(params.input-x)"
+      - name: input-y
+        value: "$(params.input-y)"
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: divide
+    runAfter:
+     - add-subtract
+    taskRef:
+      name: math-divide-workspace
+    workspaces:
+    - name: filedrop
+      workspace: shared-data
+    params:
+      - name: input-x
+        value: "$(params.input-x)"
+      - name: input-y
+        value: "$(params.input-y)"
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: low
+    runAfter:
+     - multiply
+     - divide
+    taskRef:
+      name: math-low-workspace
+    workspaces:
+    - name: filedrop
+      workspace: shared-data
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo
+  - name: artifacts
+    runAfter:
+     - low
+    taskRef:
+      name: math-artifacts-workspace
+    workspaces:
+    - name: filedrop
+      workspace: shared-data
+    params:
+      - name: artifact-name
+        value: "$(params.artifact-name)"
+    resources:
+      inputs:
+        - name: flows
+          resource: pipeline-source-repo

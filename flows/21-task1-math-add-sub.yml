@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: math-add-sub-params
+spec:
+  params:
+    - name: input-x
+      type: string
+    - name: input-y
+      type: string
+  resources:
+    inputs:
+      - name: flows
+        type: git
+  workspaces:
+  - name: filedrop
+  steps:
+    - name: add
+      image: python:3.8.5-alpine3.11
+      workingDir: /workspace/flows/src
+      command: ["python"]
+      args: ["add.py", "$(params.input-x)", "$(params.input-y)"]
+    - name: subtract
+      image: python:3.8.5-alpine3.11
+      workingDir: /workspace/flows/src
+      command: ["python"]
+      args: ["subtract.py", "$(params.input-x)", "$(params.input-y)"]
+    # - name: read
+    #   image: ubuntu
+    #   script: |
+    #     value=$(cat /workspace/sum.txt)
+    #     echo $value

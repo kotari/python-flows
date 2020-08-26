@@ -4,9 +4,9 @@ metadata:
   name: pipeline-binding
 spec:
   params:
-  - name: pl-param-x
-    value: $(body.head_commit.id)
-  - name: pl-param-y
-    value: $(body.repository.url)
-  - name: pl-param-xy
-    value: $(header.Content-Type)
+  - name: input-x
+    value: $(body.input-x)
+  - name: input-y
+    value: $(body.input-y)
+  - name: artifact-name
+    value: $(body.artifact-name)

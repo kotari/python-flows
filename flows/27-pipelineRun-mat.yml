@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: orchestration-run-
+spec:
+  params:
+  - name: artifact-name
+    value: result.txt
+  - name: input-x
+    value: "21"
+  - name: input-y
+    value: "7"
+  pipelineRef:
+    name: orchestration
+  resources:
+  - name: pipeline-source-repo
+    resourceRef:
+      name: math-git-resource
+  workspaces:
+  - name: shared-data
+    persistentVolumeClaim:
+      claimName: shared-task-storage

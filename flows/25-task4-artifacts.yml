@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: math-artifacts-workspace
+spec:
+  params:
+    - name: artifact-name
+      type: string
+  resources:
+    inputs:
+      - name: flows
+        type: git
+  workspaces:
+  - name: filedrop
+  steps:
+    - name: artifacts
+      image: rkotari/mc:latest
+      workingDir: /workspace/flows/src
+      command: ["python"]
+      args: ["copy.py", "$(params.artifact-name)", "/workspace/filedrop/$(params.artifact-name)"]

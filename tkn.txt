@@ -1,0 +1,9 @@
+curl -X POST \
+  http://localhost:8080/api/v1/namespaces/tekton-pipelines/services/el-listener:http-listener/proxy/ \
+  -H 'Content-Type: application/json' \
+  -H 'X-Hub-Signature: sha1=2da37dcb9404ff17b714ee7a505c384758ddeb7b' \
+  -d '{
+  "input-x": "21",
+  "input-y": "7",
+  "artifact-name": "result.txt"
+}'

@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: math-divide-workspace
+spec:
+  params:
+    - name: input-x
+      type: string
+    - name: input-y
+      type: string
+  resources:
+    inputs:
+      - name: flows
+        type: git
+  workspaces:
+  - name: filedrop
+  steps:
+    - name: divide
+      image: python:3.8.5-alpine3.11
+      workingDir: /workspace/flows/src
+      command: ["python"]
+      args: ["divide.py", "$(params.input-x)", "$(params.input-y)"]

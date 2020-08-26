@@ -4,24 +4,49 @@ metadata:
   name: pipeline-template
 spec:
   params:
-  - name: pl-param-x
-    description: input variable x
-    default: "7"
-  - name: pl-param-y
-    description: input variable y
-    default: "11"
-  - name: pl-param-xy
-    description: input variable x and y comma separated
-    default: "12,7"
+  - name: input-x
+    description: First parameter
+  - name: input-y
+    description: Second parameter
+  - name: artifact-name
+    description: final results will be stored to this file
   resourcetemplates:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: math-parallel-run-
+      generateName: orchestration-run-
     spec:
+      params:
+      - name: input-x
+        value: $(tt.params.input-x)
+      - name: input-y
+        value: $(tt.params.input-y)
+      - name: artifact-name
+        value: $(tt.params.artifact-name)
       pipelineRef:
-        name: math-parallel
+        name: orchestration
       resources:
       - name: pipeline-source-repo
         resourceRef:
           name: math-git-resource
+      workspaces:
+      - name: shared-data
+        persistentVolumeClaim:
+          claimName: shared-task-storage
+  # - apiVersion: tekton.dev/v1beta1
+  #   kind: PipelineRun
+  #   metadata:
+  #     generateName: math-pipeline-add-run-
+  #   spec:
+  #     params:
+  #     - name: input-x
+  #       value: $(tt.params.input-x)
+  #     - name: input-y
+  #       value: $(tt.params.input-y)
+  #     pipelineRef:
+  #       name: math-pipeline-add
+  #     resources:
+  #     - name: pipeline-source-repo
+  #       resourceRef:
+  #         name: math-git-resource
+
